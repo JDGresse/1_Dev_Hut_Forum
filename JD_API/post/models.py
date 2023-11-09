@@ -21,4 +21,4 @@ class Like(models.Model):
     liked_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.author} on '{self.post}'"
+        return f"{self.liked_by} liked '{self.post}'"
