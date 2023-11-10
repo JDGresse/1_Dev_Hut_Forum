@@ -1,3 +1,82 @@
-from django.shortcuts import render
+# post/views.py
 
-# Create your views here.
+from .models import Post, Like
+from django.contrib.auth.models import User
+from .serializers import PostSerializer, LikeSerializer, UserSerializer
+from rest_framework import generics, permissions
+from .permissions import IsOwnerOrReadOnly
+
+
+# @api_view(["GET"])
+# def api_root(request, format=None):
+#    return Response(
+#        {
+#            "users": reverse("user-list", request=request, format=format),
+#            "posts": reverse("post-list", request=request, format=format),
+#            "likes": reverse("like-list", request=request, format=format),
+#        }
+#    )
+
+
+class UserList(generics.ListAPIView):
+    """
+    List all the users.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    """
+    List the selected user details.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class PostList(generics.ListCreateAPIView):
+    """
+    List all the posts, or create a new post.
+    """
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve a single post.
+    """
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class LikeList(generics.ListCreateAPIView):
+    """
+    List all the likes, or create a new like.
+    """
+
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve a single like.
+    """
+
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
