@@ -14,11 +14,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source="author.username")
+    author = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
         model = Post
-        fields = ["id", "author", "title", "body", "created_on"]
+        fields = [
+            "id",
+            "author",
+            "title",
+            "body",
+            "created_on",
+        ]
 
 
 class LikeSerializer(serializers.ModelSerializer):
