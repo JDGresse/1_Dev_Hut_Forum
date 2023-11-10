@@ -14,10 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
+from django.contrib import admin
+from post import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
+"""
+Link all the views to the urls.
+"""
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("post.urls")),
+    path("posts/", views.PostList.as_view()),
+    path("posts/<int:pk>/", views.PostDetail.as_view()),
+    path("posts/likes", views.LikeList.as_view()),
+    path("posts/<int:pk>/", views.PostDetail.as_view()),
+    path("users/", views.UserList.as_view()),
+    path("users/<int:pk>/", views.UserDetail.as_view()),
+    path("login/", include("rest_framework.urls")),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
