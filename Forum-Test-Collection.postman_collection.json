@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "7b0a3807-a2bf-4540-bbe0-c686faade530",
+		"name": "Forum Test Collection",
+		"description": "# Introduction:\n\nThis Collection includes GET and POST requests and returns the Status of each:\n\n- GET = 200\n- POST = 201 - CREATED\n    \n\n# Requests:\n\n- GET Post List - return current datastore Post list. Expect 3 posts.\n- GET Like List - return current datastore Like list. Expect 2 likes.\n- POST New Post #4 - add new post #4 to the datastore using user id = 2 (arthur.dent).\n- POST New Post #5 - add new post #5 to datastore using user id = 3 (johnD).\n- POST New Post #6 - add new post #6 to datastore using user id = 2 (arthur.dent).\n- GET Updated Post List - return current datastore Post List. Expect 6 posts.\n    \n- GET Post #5 - return post with id = 5.\n    \n- POST New Like - add new like using user id = 3 (johnD), liking post id =6.\n    \n- GET Likes List - return current list of all current likes.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31025543",
+		"_collection_link": "https://warped-capsule-795956.postman.co/workspace/a8bfe010-0fc9-4738-871c-0fe131e6f86f/collection/31025543-7b0a3807-a2bf-4540-bbe0-c686faade530?action=share&source=collection_link&creator=31025543"
+	},
+	"item": [
+		{
+			"name": "GET Post List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						""
+					]
+				},
+				"description": "GET Post List from API."
+			},
+			"response": []
+		},
+		{
+			"name": "GET Likes List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/likes/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						"likes",
+						""
+					]
+				},
+				"description": "GET Like List from API."
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Post 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 - CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{adpword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "arthur.dent",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Another EPIC Post!\",\n    \"body\": \"Still here?!\\r\\nDon't go anywhere!!\\r\\nYou're in for a treat!!!\\r\\n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						""
+					]
+				},
+				"description": "POST New Post to API."
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Post 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 - CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jdpword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnD",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"I had a thought.\",\n    \"body\": \"I thought I would share that with you.\\r\\nSee you soon.\\r\\n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						""
+					]
+				},
+				"description": "POST New Post to API."
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Post 6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 - CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{adpword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "arthur.dent",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"This mind-blowing post was done with postman!\\r\\nImagine that!!\\r\\n\",\n    \"body\": \"Still here?!\\r\\nDon't go anywhere!!\\r\\nYou're in for a treat!!!\\r\\n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						""
+					]
+				},
+				"description": "POST New Post to API."
+			},
+			"response": []
+		},
+		{
+			"name": "GET Updated Post List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"The second of many!\",\n    \"body\": \"The second post in the legendary series of many!\\r\\nThank you for tuning in again!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						""
+					]
+				},
+				"description": "GET Post List from API."
+			},
+			"response": []
+		},
+		{
+			"name": "GET Post #5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/5/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						"5",
+						""
+					]
+				},
+				"description": "GET Post with id = 5."
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Like",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 - CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jdpword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnD",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"post\": 6,\n    \"liked_by\": 3\n},",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/likes/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						"likes",
+						""
+					]
+				},
+				"description": "POST Add Like to API."
+			},
+			"response": []
+		},
+		{
+			"name": "GET Updated Like List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/posts/likes/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"posts",
+						"likes",
+						""
+					]
+				},
+				"description": "GET Like List from API."
+			},
+			"response": []
+		}
+	]
+}
